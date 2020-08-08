@@ -38,7 +38,8 @@ namespace PromotionEngine.Test
                     { "d", 1 }
                 };
             var result = await CallCostCalculatorController(input);
-            result.IsSuccessStatusCode.ShouldBe(false);
+            var content = await result.Content.ReadAsStringAsync();
+            content.ShouldBe("280");
         }
 
     }

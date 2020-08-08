@@ -11,5 +11,11 @@ namespace PromotionEngine.Controllers
     [ApiController]
     public class CostCalculatorController : ControllerBase
     {
+        [HttpPost]
+        [Route("CalculateCost")]
+        public ActionResult<int> CalculateCost(Dictionary<string, int> formRequest)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
