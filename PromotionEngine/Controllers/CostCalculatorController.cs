@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PromotionEngine.Service;
 
 namespace PromotionEngine.Controllers
 {
@@ -11,11 +12,17 @@ namespace PromotionEngine.Controllers
     [ApiController]
     public class CostCalculatorController : ControllerBase
     {
+        private readonly ICostCalculatorService _costCalculatorService;
+        public CostCalculatorController(ICostCalculatorService costCalculatorService)
+        {
+            _costCalculatorService = costCalculatorService;
+        }
+
         [HttpPost]
         [Route("CalculateCost")]
         public ActionResult<int> CalculateCost(Dictionary<string, int> formRequest)
         {
-            throw new NotImplementedException();
+            return _costCalculatorService.CalculateCost(formRequest);
         }
     }
 }
