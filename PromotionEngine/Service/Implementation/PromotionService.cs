@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 
 namespace PromotionEngine.Service.Implementation
 {
-    public class PromotionService :IPromotionService
+    public class PromotionService : IPromotionService
     {
+        public int ApplyPromotion(Dictionary<string, int> formRequest)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

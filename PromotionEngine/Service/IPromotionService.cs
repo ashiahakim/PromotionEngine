@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace PromotionEngine.Service
 {
-    interface IPromotionService
+    public interface IPromotionService
     {
+        int ApplyPromotion(Dictionary<string, int> formRequest);
     }
 }
