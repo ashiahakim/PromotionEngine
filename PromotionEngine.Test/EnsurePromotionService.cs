@@ -195,5 +195,28 @@ namespace PromotionEngine.Test
                 result.ShouldBe(120);
             }
         }
+
+        public class CheckCartPriceWithInValidItems : EnsurePromotionService
+        {
+            private Dictionary<string, int> CreateInputRequest(int inputA, int inputB, int inputC, int inputD, int invalidInput)
+            {
+                var input = new Dictionary<string, int>();
+                input.Add("a", inputA);
+                input.Add("b", inputB);
+                input.Add("c", inputC);
+                input.Add("d", inputD);
+                input.Add("f", invalidInput);
+
+                return input;
+            }
+
+            [Fact]
+            public void ShouldIgnoreInvalidItems()
+            {
+                var input = CreateInputRequest(1, 1, 1, 1, 1);
+                var result = CallApplyPromotionWithGivenData(input);
+                result.ShouldBe(110);
+            }
+        }
     }
 }
