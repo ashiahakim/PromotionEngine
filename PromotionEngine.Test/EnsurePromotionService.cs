@@ -172,5 +172,28 @@ namespace PromotionEngine.Test
                 result.ShouldBe(280);
             }
         }
+
+        public class CheckCartPriceWithNonPromotionItems : EnsurePromotionService
+        {
+            private Dictionary<string, int> CreateInputRequest(int inputA, int inputB, int inputC, int inputD, int inputE)
+            {
+                var input = new Dictionary<string, int>();
+                input.Add("a", inputA);
+                input.Add("b", inputB);
+                input.Add("c", inputC);
+                input.Add("d", inputD);
+                input.Add("e", inputE);
+
+                return input;
+            }
+
+            [Fact]
+            public void WithAllItem()
+            {
+                var input = CreateInputRequest(1, 1, 1, 1, 1);
+                var result = CallApplyPromotionWithGivenData(input);
+                result.ShouldBe(120);
+            }
+        }
     }
 }
