@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PromotionEngine.Service;
+using PromotionEngine.Service.Implementation;
 
 namespace PromotionEngine
 {
@@ -21,6 +23,9 @@ namespace PromotionEngine
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddScoped<ICostCalculatorService, CostCalculatorService>();
+            services.AddScoped<IPromotionService, PromotionService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
