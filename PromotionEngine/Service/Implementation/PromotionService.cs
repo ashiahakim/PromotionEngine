@@ -45,6 +45,10 @@ namespace PromotionEngine.Service.Implementation
                 }
             }
 
+            sum = GetSumAfterPromotionType2(formRequest, sum);
+            RemoveKeyFromRequest(formRequest, "c");
+            RemoveKeyFromRequest(formRequest, "d");
+
             return sum;
         }
 
@@ -73,6 +77,25 @@ namespace PromotionEngine.Service.Implementation
                 return lookup[key];
             }
             return 0;
+        }
+
+        private int GetSumAfterPromotionType2(Dictionary<string, int> inputValue, int sum)
+        {
+
+            var inputC = GetValuefromLookup(inputValue, "c");
+            var inputD = GetValuefromLookup(inputValue, "d");
+            var diff = 0;
+            if (inputC >= inputD)
+            {
+                diff = inputC - inputD;
+                sum = sum + inputD * 30;
+                return sum + (diff * GetValuefromLookup(_itemUnitPriceLookup, "c"));
+            }
+            diff = inputD - inputC;
+            sum = sum + inputC * 30;
+            sum = sum + (diff * GetValuefromLookup(_itemUnitPriceLookup, "d"));
+
+            return sum;
         }
     }
 }
