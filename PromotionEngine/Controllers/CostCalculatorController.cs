@@ -22,6 +22,12 @@ namespace PromotionEngine.Controllers
         [Route("CalculateCost")]
         public ActionResult<int> CalculateCost(Dictionary<string, int> formRequest)
         {
+            var error = formRequest.Values.Where(x => x < 0);
+            if (error.Any())
+            {
+                return BadRequest("Input can't be negative");
+            }
+
             return _costCalculatorService.CalculateCost(formRequest);
         }
     }
