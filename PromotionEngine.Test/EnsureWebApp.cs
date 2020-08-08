@@ -42,5 +42,20 @@ namespace PromotionEngine.Test
             content.ShouldBe("280");
         }
 
+        [Fact]
+        public async Task ThenBadRequestReturned()
+        {
+            var input = new Dictionary<string, int>
+                {
+                    { "a", -3 },
+                    { "b", 5 },
+                    { "c", 1 },
+                    { "d", 1 }
+                };
+            var result = await CallCostCalculatorController(input);
+            var content = await result.Content.ReadAsStringAsync();
+            content.ShouldBe("Input can't be negative");
+        }
+
     }
 }
