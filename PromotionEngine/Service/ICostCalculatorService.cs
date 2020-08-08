@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PromotionEngine.Service
 {
     public interface ICostCalculatorService
     {
+        int CalculateCost(Dictionary<string, int> formRequest);
     }
 }
