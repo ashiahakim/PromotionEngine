@@ -55,5 +55,45 @@ namespace PromotionEngine.Test
                 result.ShouldBe(310);
             }
         }
+
+        public class CheckCartPriceWithBItems : EnsurePromotionService
+        {
+            private Dictionary<string, int> CreateInputRequest(int inputB)
+            {
+                var input = new Dictionary<string, int>
+                {
+                    { "a", 0 },
+                    { "c", 0 },
+                    { "d", 0 }
+                };
+                input.Add("b", inputB);
+
+                return input;
+            }
+
+            [Fact]
+            public void SingleBItem()
+            {
+                var input = CreateInputRequest(1);
+                var result = CallApplyPromotionWithGivenData(input);
+                result.ShouldBe(30);
+            }
+
+            [Fact]
+            public void ThreeBItem()
+            {
+                var input = CreateInputRequest(3);
+                var result = CallApplyPromotionWithGivenData(input);
+                result.ShouldBe(75);
+            }
+
+            [Fact]
+            public void SevenBItem()
+            {
+                var input = CreateInputRequest(7);
+                var result = CallApplyPromotionWithGivenData(input);
+                result.ShouldBe(165);
+            }
+        }
     }
 }
