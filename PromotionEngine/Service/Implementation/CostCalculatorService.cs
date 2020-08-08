@@ -5,9 +5,15 @@ namespace PromotionEngine.Service.Implementation
 {
     public class CostCalculatorService : ICostCalculatorService
     {
+        private readonly IPromotionService _promotionService;
+        public CostCalculatorService(IPromotionService promotionService)
+        {
+            _promotionService = promotionService;
+        }
+
         public int CalculateCost(Dictionary<string, int> formRequest)
         {
-            throw new NotImplementedException();
+            return _promotionService.ApplyPromotion(formRequest);
         }
     }
 }
