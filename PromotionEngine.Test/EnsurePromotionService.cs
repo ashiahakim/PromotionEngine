@@ -188,7 +188,7 @@ namespace PromotionEngine.Test
             }
 
             [Fact]
-            public void WithAllItem()
+            public void AddsOriginalAmountToTheTotalAmount()
             {
                 var input = CreateInputRequest(1, 1, 1, 1, 1);
                 var result = CallApplyPromotionWithGivenData(input);

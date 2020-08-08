@@ -49,6 +49,8 @@ namespace PromotionEngine.Service.Implementation
             RemoveKeyFromRequest(formRequest, "c");
             RemoveKeyFromRequest(formRequest, "d");
 
+            sum = GetSumForNonPromotionItem(formRequest, sum);
+
             return sum;
         }
 
@@ -94,6 +96,18 @@ namespace PromotionEngine.Service.Implementation
             diff = inputD - inputC;
             sum = sum + inputC * 30;
             sum = sum + (diff * GetValuefromLookup(_itemUnitPriceLookup, "d"));
+
+            return sum;
+        }
+        private int GetSumForNonPromotionItem(Dictionary<string, int> inputValue, int sum)
+        {
+            foreach (var key in inputValue.Keys)
+            {
+                if (_itemUnitPriceLookup.ContainsKey(key))
+                {
+                    sum = sum + (inputValue[key] * _itemUnitPriceLookup[key]);
+                }
+            }
 
             return sum;
         }
