@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using PromotionEngine.Model;
 
 namespace PromotionEngine.Service.Implementation
@@ -38,7 +35,44 @@ namespace PromotionEngine.Service.Implementation
         }
         public int ApplyPromotion(Dictionary<string, int> formRequest)
         {
-            throw new NotImplementedException();
+            var sum = 0;
+            foreach (var promotionKey in _promotionOfferLookup.Keys)
+            {
+                if (formRequest.ContainsKey(promotionKey))
+                {
+                    sum = GetSumAfterPromotionType1(promotionKey, formRequest[promotionKey], sum);
+                    RemoveKeyFromRequest(formRequest, promotionKey);
+                }
+            }
+
+            return sum;
+        }
+
+        private static void RemoveKeyFromRequest(Dictionary<string, int> formRequest, string key)
+        {
+            if (formRequest.ContainsKey(key))
+            {
+                formRequest.Remove(key);
+            }
+        }
+
+        private int GetSumAfterPromotionType1(string key, int inputValue, int sum)
+        {
+            var input = inputValue;
+            var discountCount = _promotionOfferLookup[key].Count;
+            var discountPrice = _promotionOfferLookup[key].Price;
+            sum = sum + (input / discountCount) * discountPrice + (input % discountCount) * GetValuefromLookup(_itemUnitPriceLookup, key);
+
+            return sum;
+        }
+
+        private int GetValuefromLookup(Dictionary<string, int> lookup, string key)
+        {
+            if (lookup.ContainsKey(key))
+            {
+                return lookup[key];
+            }
+            return 0;
         }
     }
 }
