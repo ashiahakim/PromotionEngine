@@ -38,6 +38,22 @@ namespace PromotionEngine.Test
                 var result = CallApplyPromotionWithGivenData(input);
                 result.ShouldBe(50);
             }
+
+            [Fact]
+            public void ThreeAItem()
+            {
+                var input = CreateInputRequest(3);
+                var result = CallApplyPromotionWithGivenData(input);
+                result.ShouldBe(130);
+            }
+
+            [Fact]
+            public void SevenAItem()
+            {
+                var input = CreateInputRequest(7);
+                var result = CallApplyPromotionWithGivenData(input);
+                result.ShouldBe(310);
+            }
         }
     }
 }
